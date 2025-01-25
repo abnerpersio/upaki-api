@@ -12,8 +12,11 @@ export class UploadedFileUseCase {
       return new UpdateCommand({
         TableName: Env.tableName,
         Key: { fileKey: decodeURIComponent(fileKey) },
-        UpdateExpression: "SET #status = :status, REMOVE #expiresAt",
-        ExpressionAttributeNames: { "#status": "status" },
+        UpdateExpression: "SET #status = :status REMOVE #expiresAt",
+        ExpressionAttributeNames: {
+          "#status": "status",
+          "#expiresAt": "expiresAt",
+        },
         ExpressionAttributeValues: { ":status": "UPLOADED" },
       });
     });

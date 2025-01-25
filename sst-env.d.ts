@@ -5,6 +5,18 @@
 
 declare module "sst" {
   export interface Resource {
+    "upaki-2s8zcbflakdmghmkpet7go3htq4": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "upaki-api": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "upaki-table": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />

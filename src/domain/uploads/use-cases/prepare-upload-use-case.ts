@@ -7,28 +7,32 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { randomUUID } from "node:crypto";
 
 type Data = {
-  fileName: string;
+  fileNames: string[];
 };
 
 export class PrepareUploadUseCase implements UseCase {
   async execute(request: HttpRequest<Data>): Promise<HttpResponse> {
-    const { fileName } = request.body;
+    const { fileNames } = request.body;
 
-    if (!fileName) {
+    if (!fileNames?.length) {
       throw new HttpError(400, "File name is required");
     }
 
-    const fileKey = `${randomUUID()}-${fileName}`;
+    const urls = Promise.all(
+      fileNames.map(async (fileName) => {
+        const fileKey = `${randomUUID()}-${fileName}`;
 
-    const command = new PutObjectCommand({
-      Bucket: Env.bucketName,
-      Key: fileKey,
-    });
+        const command = new PutObjectCommand({
+          Bucket: Env.bucketName,
+          Key: fileKey,
+        });
 
-    const url = await getSignedUrl(s3, command, {
-      expiresIn: Env.uploadExpiration,
-    });
+        return await getSignedUrl(s3, command, {
+          expiresIn: Env.uploadExpiration,
+        });
+      })
+    );
 
-    return { status: 200, data: { url } };
+    return { status: 200, data: { urls } };
   }
 }

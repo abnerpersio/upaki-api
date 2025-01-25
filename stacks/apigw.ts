@@ -16,7 +16,7 @@ const environment = {
 };
 
 apigw.route(
-  "GET /health",
+  "POST /prepare-upload",
   lambda({ handler: "src/infra/functions/prepare-upload.handler", environment })
 );
 

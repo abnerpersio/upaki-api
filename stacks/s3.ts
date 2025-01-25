@@ -1,10 +1,17 @@
 /// <reference path="../.sst/platform/config.d.ts" />
 
-const bucket = new sst.aws.Bucket("upaki-2ryudRo16thowOd3R", {
+const name = "upaki-2s8zcbflakdmghmkpet7go3htq4";
+
+const bucket = new sst.aws.Bucket(name, {
   cors: {
     allowOrigins: ["http://localhost:5173"],
     allowHeaders: ["*"],
     allowMethods: ["PUT"],
+  },
+  transform: {
+    bucket: {
+      bucket: name,
+    },
   },
 });
 

@@ -19,6 +19,7 @@ export default $config({
     return {
       apigw: stacks.apigw.url,
       bucketArn: stacks.bucket.arn,
+      tableName: stacks.table.name,
     };
   },
 });

@@ -1,8 +1,10 @@
 /// <reference path="../../.sst/platform/config.d.ts" />
 
+import { appConfig } from "../config";
+
 type Args = Omit<
   sst.aws.FunctionArgs,
-  "architecture" | "nodejs" | "runtime" | "logging"
+  "architecture" | "nodejs" | "runtime" | "logging" | "transform"
 >;
 
 export function lambda(args: Args): sst.aws.FunctionArgs {

@@ -1,3 +1,5 @@
+/// <reference path="../../.sst/platform/config.d.ts" />
+
 type Args = Omit<
   sst.aws.FunctionArgs,
   "architecture" | "nodejs" | "runtime" | "logging"

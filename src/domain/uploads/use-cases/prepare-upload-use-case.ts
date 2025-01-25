@@ -18,9 +18,9 @@ export class PrepareUploadUseCase implements UseCase {
       throw new HttpError(400, "File name is required");
     }
 
-    const urls = Promise.all(
+    const urls = await Promise.all(
       fileNames.map(async (fileName) => {
-        const fileKey = `${randomUUID()}-${fileName}`;
+        const fileKey = `uploads/${randomUUID()}-${fileName}`;
 
         const command = new PutObjectCommand({
           Bucket: Env.bucketName,
